@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Diagnostics;
 using System.Reflection;
 using static System.Random;
 
@@ -12,6 +13,7 @@ namespace PiotrrKubas.MathGame
         {
             List<string> gameHistory = new List<string>();
 
+            Stopwatch stopwatch = new Stopwatch();
             Random random = new Random();
 
             int a = 0;
@@ -32,16 +34,17 @@ namespace PiotrrKubas.MathGame
             {
                 while (menuSelector != 'e')
                 {
+                    Console.Clear();
                     Console.WriteLine("Pick you game mode:");
-                    Console.WriteLine("Addition - \'+\'");
-                    Console.WriteLine("Substraction - \'-\'");
-                    Console.WriteLine("Multiplication - \'*\'");
-                    Console.WriteLine("Division - \'/\'");
-                    Console.WriteLine("5 Random Games - \'R\'");
-                    Console.WriteLine("Difficulty \'D\'");
-                    Console.WriteLine("Score - \'S\'");
-                    Console.WriteLine("Game history - \'H\'");
-                    Console.WriteLine("Exit - \'E\'");
+                    Console.WriteLine(" '+' - Addition");
+                    Console.WriteLine(" '-' - Substraction");
+                    Console.WriteLine(" '*' - Multiplication");
+                    Console.WriteLine(" '/' - Division");
+                    Console.WriteLine(" 'R' - 5 Random Games");
+                    Console.WriteLine(" 'D' - Difficulty");
+                    Console.WriteLine(" 'S' - Score");
+                    Console.WriteLine(" 'H' - Game history");
+                    Console.WriteLine(" 'E' - Exit");
 
                     menuSelector = Console.ReadKey().KeyChar;
                     Console.Clear();
@@ -109,22 +112,26 @@ namespace PiotrrKubas.MathGame
                         break;
                 }   
 
+                stopwatch.Start();
                 do
                 {
                     Console.WriteLine("Enter your result, result must be an integer:");
                     userInput = Console.ReadLine();
                 } while (!(int.TryParse(userInput, out _)));
+                stopwatch.Stop();
 
                 if (userInput !=null && int.Parse(userInput) == result) 
                 {
                     Console.WriteLine("Score +10");
                     score += 10;
-                    gameHistory.Add($"{a} {mathOperator} {b} = {result} \tYour answer: {userInput} \t\t\tYou were right!\t");
+                    gameHistory.Add($"{a} {mathOperator} {b} = {result} \t Your answer: {userInput} \t\tYou were right!\tTime elapsed {stopwatch.Elapsed}");
+                    stopwatch.Restart();
                     Console.ReadLine();
                 }
                 else 
                 {
-                    gameHistory.Add($"{a} {mathOperator} {b} = {result} \tYour answer: {userInput} \t\t\tYou were wrong!\t");
+                    gameHistory.Add($"{a} {mathOperator} {b} = {result} \t Your answer: {userInput} \t\tYou were wrong!\tTime elapsed {stopwatch.Elapsed.TryFormat()}");
+                    stopwatch.Restart();
                 }
             }
 
@@ -150,9 +157,9 @@ namespace PiotrrKubas.MathGame
                 bool correctInput;
                 Console.Clear();
                 Console.WriteLine("Select difficulty:");
-                Console.WriteLine("Easy - \'1\'");
-                Console.WriteLine("Medium - \'2\'");
-                Console.WriteLine("Hard - \'3\'");
+                Console.WriteLine(" '1' - Easy");
+                Console.WriteLine(" '2' - Medium");
+                Console.WriteLine(" '3' - Hard");
 
                 do
                 {
