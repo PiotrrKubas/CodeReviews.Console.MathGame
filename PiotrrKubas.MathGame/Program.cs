@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Diagnostics;
-using System.Reflection;
 using static System.Random;
 
 namespace PiotrrKubas.MathGame
@@ -130,7 +129,7 @@ namespace PiotrrKubas.MathGame
                 }
                 else 
                 {
-                    gameHistory.Add($"{a} {mathOperator} {b} = {result} \t Your answer: {userInput} \t\tYou were wrong!\tTime elapsed {stopwatch.Elapsed.TryFormat()}");
+                    gameHistory.Add($"{a} {mathOperator} {b} = {result} \t Your answer: {userInput} \t\tYou were wrong!\tTime elapsed {stopwatch.Elapsed}");
                     stopwatch.Restart();
                 }
             }
@@ -181,6 +180,7 @@ namespace PiotrrKubas.MathGame
                             correctInput = true;
                             break;
                         default:
+                            Console.Clear();
                             Console.WriteLine("Wrong input, you have to select 1, 2 or 3");
                             correctInput = false;
                             break;
